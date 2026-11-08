@@ -28,6 +28,8 @@ jobs:
   render_and_publish:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -67,6 +69,14 @@ jobs:
         run: |
           python -m faceless_engine.cli --prompt "${{ inputs.prompt }}" --style "${{ inputs.style }}" --slug "${{ inputs.slug }}"
 
+      - name: Create Public Video Release (Permanent CDN for Meta & YouTube)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v-${{ inputs.slug }}" "output/faceless/${{ inputs.slug }}/${{ inputs.slug }}_final.mp4" \
+            --title "${{ inputs.prompt }}" \
+            --notes "Automated Faceless Short" || true
+
       - name: Deliver to Telegram & Publish to YouTube / Instagram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -76,6 +86,7 @@ jobs:
         run: |
           python publish_reel.py \
             --video "output/faceless/${{ inputs.slug }}/${{ inputs.slug }}_final.mp4" \
+            --public-url "https://github.com/${{ github.repository }}/releases/download/v-${{ inputs.slug }}/${{ inputs.slug }}_final.mp4" \
             --prompt "${{ inputs.prompt }}" \
             --style "${{ inputs.style }}" \
             --platforms "${{ inputs.publish_platforms }}" \
