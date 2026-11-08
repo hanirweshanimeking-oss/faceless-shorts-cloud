@@ -1,0 +1,85 @@
+name: Generate Faceless Short / Reel
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Video concept or story prompt'
+        required: true
+        default: 'The man who bought an entire bank for $1'
+      style:
+        description: 'Visual style'
+        required: false
+        default: 'Tall Tale 3D'
+      voice:
+        description: 'Voice identifier'
+        required: false
+        default: 'en-US-ChristopherNeural'
+      publish_platforms:
+        description: 'Publishing targets (ALL, YOUTUBE, INSTAGRAM, TELEGRAM)'
+        required: false
+        default: 'ALL'
+      slug:
+        description: 'Project slug identifier'
+        required: false
+        default: 'cloud_reel'
+
+jobs:
+  render_and_publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install System Dependencies (FFmpeg & Fonts)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-liberation fontconfig
+          fc-cache -fv
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Notify Telegram of Render Start
+        if: ${{ secrets.TELEGRAM_BOT_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${{ secrets.TELEGRAM_CHAT_ID }}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n\\n⏳ Synthesizing voice, 3D scenes & viral subtitles in cloud...\", \"parse_mode\": \"Markdown\"}"
+
+      - name: Generate Faceless Short Video
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          python -m faceless_engine.cli --prompt "${{ inputs.prompt }}" --style "${{ inputs.style }}" --slug "${{ inputs.slug }}"
+
+      - name: Deliver to Telegram & Publish to YouTube / Instagram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
+        run: |
+          python publish_reel.py \
+            --video "output/faceless/${{ inputs.slug }}/${{ inputs.slug }}_final.mp4" \
+            --prompt "${{ inputs.prompt }}" \
+            --style "${{ inputs.style }}" \
+            --platforms "${{ inputs.publish_platforms }}" \
+            --slug "${{ inputs.slug }}"
+
+      - name: Upload Video Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reel-${{ inputs.slug }}
+          path: output/faceless/${{ inputs.slug }}/${{ inputs.slug }}_final.mp4
+          retention-days: 30
