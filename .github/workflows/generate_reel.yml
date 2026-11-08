@@ -51,11 +51,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Notify Telegram of Render Start
-        if: ${{ secrets.TELEGRAM_BOT_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -H "Content-Type: application/json" \
-            -d "{\"chat_id\": \"${{ secrets.TELEGRAM_CHAT_ID }}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n\\n⏳ Synthesizing voice, 3D scenes & viral subtitles in cloud...\", \"parse_mode\": \"Markdown\"}"
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -H "Content-Type: application/json" \
+              -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n\\n⏳ Synthesizing voice, 3D scenes & viral subtitles in cloud...\", \"parse_mode\": \"Markdown\"}"
+          fi
 
       - name: Generate Faceless Short Video
         env:
