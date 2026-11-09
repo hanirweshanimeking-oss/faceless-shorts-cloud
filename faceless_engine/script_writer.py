@@ -151,16 +151,27 @@ STRICT VIRAL RETENTION RULES:
 }}
 Return ONLY JSON, no markdown formatting or extra text."""
 
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[
-                {"role": "system", "content": "You are an elite viral short-form director. Output ONLY raw JSON."},
-                {"role": "user", "content": prompt}
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.7,
-            max_tokens=1500
-        )
+        candidate_models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "openai/gpt-oss-120b", "openai/gpt-oss-20b"]
+        response = None
+        for model_id in candidate_models:
+            try:
+                response = client.chat.completions.create(
+                    model=model_id,
+                    messages=[
+                        {"role": "system", "content": "You are an elite viral short-form director. Output ONLY raw JSON."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0.7,
+                    max_tokens=1500
+                )
+                if response and response.choices:
+                    break
+            except Exception as model_err:
+                continue
+
+        if not response or not response.choices:
+            return None
         data = json.loads(response.choices[0].message.content)
         scenes = [
             SceneBeat(
