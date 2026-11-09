@@ -6,6 +6,8 @@ Creates high-retention viral scripts adhering to the strict viral rules:
 - Seamless loop: Closing sentence connects naturally into the opening hook
 - Style adaptations: Tall Tale 3D, Deep Dive 3D, Inside Out, Stick Story, Night File 3D, Paper Atlas
 """
+import os
+import json
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 
@@ -108,6 +110,84 @@ def generate_tall_tale_bank_script() -> ViralScript:
         loop_transition="Connects back to 'In 1995, one man walked into Britain's oldest bank...'"
     )
 
+def generate_script_with_groq(title: str, style: str = "Tall Tale 3D") -> Optional[ViralScript]:
+    """
+    Uses Groq API (Llama 3.3 70B Versatile) for ultra-fast (500+ tok/s) viral script generation.
+    """
+    api_key = os.getenv("GROQ_API_KEY", "").strip()
+    if not api_key:
+        return None
+    try:
+        from groq import Groq
+        client = Groq(api_key=api_key)
+        
+        prompt = f"""You are a master viral short-form director specializing in {style}.
+Write a 6-scene viral short script (approx 35 seconds total, ~75 words total).
+TOPIC: {title}
+STYLE: {style}
+
+STRICT VIRAL RETENTION RULES:
+1. Scene 1 MUST be an explosive 2-second hook with NO introductory fluff (no 'Hey guys', no 'Today we look at'). Jump straight to the jaw-dropping punchline.
+2. Fast visual pacing: Scene beats change every 4 to 6 seconds.
+3. Scene 6 MUST naturally loop back into the first sentence of Scene 1.
+4. Output valid JSON with this exact schema:
+{{
+  "title": "{title}",
+  "style": "{style}",
+  "target_duration": 35.0,
+  "loop_transition": "...",
+  "scenes": [
+    {{
+      "scene_index": 1,
+      "name": "The Instant Hook",
+      "narration": "...",
+      "camera_movement": "Fast punch-in from wide street to hero object",
+      "character_action": "...",
+      "environment_desc": "...",
+      "sfx_cue": "whoosh_pop",
+      "est_duration_sec": 5.0
+    }}
+  ]
+}}
+Return ONLY JSON, no markdown formatting or extra text."""
+
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": "You are an elite viral short-form director. Output ONLY raw JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.7,
+            max_tokens=1500
+        )
+        data = json.loads(response.choices[0].message.content)
+        scenes = [
+            SceneBeat(
+                scene_index=s.get("scene_index", idx + 1),
+                name=s.get("name", f"Scene {idx + 1}"),
+                narration=s.get("narration", ""),
+                camera_movement=s.get("camera_movement", "Smooth pan"),
+                character_action=s.get("character_action", "Hero character acting"),
+                environment_desc=s.get("environment_desc", "Miniature 3D world"),
+                sfx_cue=s.get("sfx_cue", "whoosh_pop"),
+                est_duration_sec=float(s.get("est_duration_sec", 5.5))
+            )
+            for idx, s in enumerate(data.get("scenes", []))
+        ]
+        full_narration = " ".join(s.narration for s in scenes)
+        return ViralScript(
+            title=data.get("title", title),
+            style=style,
+            target_duration=float(data.get("target_duration", 35.0)),
+            full_narration=full_narration,
+            scenes=scenes,
+            loop_transition=data.get("loop_transition", "Loops back to opening")
+        )
+    except Exception as e:
+        print(f"[ScriptWriter] Groq generation notice: {e}")
+        return None
+
 def generate_script_for_topic(title: str, hook: Optional[str] = None, style: str = "Tall Tale 3D") -> ViralScript:
     """
     Dynamically generates a 6-scene viral short script for ANY topic
@@ -115,6 +195,11 @@ def generate_script_for_topic(title: str, hook: Optional[str] = None, style: str
     """
     if "bank for $1" in title.lower() or "bank for 1" in title.lower():
         return generate_tall_tale_bank_script()
+
+    # 1. Try Groq Llama 3.3 (Fastest 500+ tok/s)
+    groq_script = generate_script_with_groq(title, style)
+    if groq_script:
+        return groq_script
         
     hook_line = hook or f"Did you know the crazy true story behind {title}?"
     
