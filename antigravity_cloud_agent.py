@@ -30,6 +30,21 @@ REPO_ROOT = Path(__file__).resolve().parent
 WORKSPACE_REPOS = REPO_ROOT / "repos"
 WORKSPACE_REPOS.mkdir(parents=True, exist_ok=True)
 
+# Try loading from .env if present
+env_paths = [REPO_ROOT / ".env", REPO_ROOT.parent / ".env"]
+for ep in env_paths:
+    if ep.exists():
+        try:
+            for line in ep.read_text(encoding="utf-8", errors="ignore").splitlines():
+                if "=" in line and not line.strip().startswith("#"):
+                    k, v = line.split("=", 1)
+                    k = k.strip()
+                    v = v.strip().strip("'\"")
+                    if not os.getenv(k):
+                        os.environ[k] = v
+        except Exception:
+            pass
+
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8768392597:AAEXtwLn-wShMTceDfYopQfR0wpySmtsA5A")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7527497140")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
@@ -488,17 +503,31 @@ TOOLS_SCHEMA = [
 ]
 
 def call_groq_llm(messages: List[Dict[str, Any]]) -> Dict[str, Any]:
+    import httpx
     from groq import Groq
-    client = Groq(api_key=GROQ_API_KEY)
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=messages,
-        tools=TOOLS_SCHEMA,
-        tool_choice="auto",
-        temperature=0.3,
-        max_tokens=3000
-    )
-    return response.choices[0].message
+    client = Groq(api_key=GROQ_API_KEY, http_client=httpx.Client(verify=False))
+    models_to_try = [
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+        "qwen/qwen3.8-27b"
+    ]
+    last_err = None
+    for model_name in models_to_try:
+        try:
+            print(f"[LLM] Prompting Groq model '{model_name}'...")
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=messages,
+                tools=TOOLS_SCHEMA,
+                tool_choice="auto",
+                temperature=0.3,
+                max_tokens=3000
+            )
+            return response.choices[0].message
+        except Exception as e:
+            print(f"[-] Model '{model_name}' failed: {e}. Trying next fallback...")
+            last_err = e
+    raise last_err or RuntimeError("No compatible LLM models succeeded.")
 
 def execute_autonomous_agent(task_instruction: str, max_iterations: int = 10) -> str:
     """
