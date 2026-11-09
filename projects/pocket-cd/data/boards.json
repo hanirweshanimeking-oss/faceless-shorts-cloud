@@ -1,0 +1,86 @@
+[
+  {
+    "id": "board_1",
+    "title": "Ackman Style Moodboard & Visual Flow",
+    "updated_at": "2026-11-09",
+    "cards": [
+      {
+        "id": "b_card_1",
+        "title": "Reference Video: @metromedia.house",
+        "type": "video",
+        "url": "/static/assets/ackman_reference.mp4",
+        "x": 40,
+        "y": 60,
+        "width": 300
+      },
+      {
+        "id": "b_card_2",
+        "title": "Style Signature Breakdown",
+        "type": "notes",
+        "content": "Key takeaways:\n1. 0.0-1.5s hook with hard white strobe\n2. Yellow kinetic poster font (#FFDF38) with soft bloom\n3. High-contrast B-roll cuts on beat\n4. Audio sidechain ducking on speech (-12dB)",
+        "x": 380,
+        "y": 60,
+        "width": 320
+      },
+      {
+        "id": "b_card_3",
+        "title": "Extracted Facial Match Cuts",
+        "type": "image",
+        "url": "/static/assets/frame_0020.jpg",
+        "x": 740,
+        "y": 60,
+        "width": 340
+      },
+      {
+        "id": "card_6318c4",
+        "title": "Test Card",
+        "type": "notes",
+        "url": null,
+        "content": "Sample note",
+        "x": 50,
+        "y": 50,
+        "width": 300
+      },
+      {
+        "id": "card_5a37e1",
+        "title": "Test Card",
+        "type": "notes",
+        "url": null,
+        "content": "Sample note",
+        "x": 50,
+        "y": 50,
+        "width": 300
+      },
+      {
+        "id": "card_dbf85e",
+        "title": "Test Card",
+        "type": "notes",
+        "url": null,
+        "content": "Sample note",
+        "x": 50,
+        "y": 50,
+        "width": 300
+      },
+      {
+        "id": "card_0303bf",
+        "title": "Test Card",
+        "type": "notes",
+        "url": null,
+        "content": "Sample note",
+        "x": 50,
+        "y": 50,
+        "width": 300
+      },
+      {
+        "id": "card_a50d79",
+        "title": "Test Card",
+        "type": "notes",
+        "url": null,
+        "content": "Sample note",
+        "x": 50,
+        "y": 50,
+        "width": 300
+      }
+    ]
+  }
+]

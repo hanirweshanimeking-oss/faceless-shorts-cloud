@@ -1,0 +1,301 @@
+[
+  {
+    "id": "script_1",
+    "title": "Pocket Creative Director Launch VSL (Carl's Voice)",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "stability": "Natural (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "audio_path": "/static/assets/demo_narration.mp3",
+    "content": "Carl, relaxed hi... what is Pocket Creative Director?\n\nOkay, so you recorded a video. The recording took ten minutes. And now everything after it is waiting for you... the cut, the graphics, the sound, the captions. That part eats the whole day.\n\nPocket Creative Director is the team that does that part. It lives in a folder on your computer. It talks inside Claude Code, and it writes in the editing apps you already use: DaVinci Resolve, After Effects, Premiere.\n\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, no upload, no web app, and no manual work."
+  },
+  {
+    "id": "script_2",
+    "title": "Ackman Style Viral Hook & Breakdown",
+    "voice": "Christopher - Deep & Authoritative",
+    "model": "ElevenLabs v4",
+    "stability": "Dynamic Punch (0.70)",
+    "similarity": "0.80",
+    "tone": "Suspenseful, high retention, documentary investor",
+    "created_at": "2026-11-08",
+    "status": "ready",
+    "audio_path": "/static/assets/ackman_hook.mp3",
+    "content": "Bill Ackman might be the only investor whose entire net worth comes down to a single high-stakes bet against corporate titans.\n\n[pause: 0.3s]\n\nNot even an army of short sellers could withstand what happened next. Here is the untold playbook of how he engineered a billion-dollar turnaround from a hotel room in Manhattan."
+  },
+  {
+    "id": "script_d59505da",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_4a882530",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_9e88e818",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_c81fe1aa",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_04221365",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_578abe10",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_40b04634",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_378b49ea",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_af326f45",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_dad39dc6",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_1c593fef",
+    "title": "Pocket Creative Director - Pocket Creator Director Launch",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creator Director Launch?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_36828144",
+    "title": "Pocket Creative Director - Rest Api Test Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is REST API Test VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  },
+  {
+    "id": "script_e84d7504",
+    "title": "Pocket Creative Director - Pocket Creative Director Launch Vsl",
+    "voice": "Nate - Warm & Conversational (Carl's Voice)",
+    "model": "ElevenLabs v4",
+    "voice_preset": "carl_voice",
+    "stability": "Dynamic (0.55)",
+    "similarity": "0.75",
+    "tone": "Warm, confident, conversational, peer-to-peer",
+    "created_at": "2026-11-09",
+    "status": "ready",
+    "target_duration_sec": 22,
+    "content": "[emotion: relaxed, warm] Carl, relaxed hi... what is Pocket Creative Director Launch VSL?\n\nOkay, so you recorded a video. The recording took ten minutes. [pause: 0.3s]\nAnd now everything after it is waiting for you: the cut, the graphics, the sound, the captions. [emphasis: high] That part eats the whole day.\n\n[emotion: confident] Pocket Creative Director is the team that does that part. It lives in a folder on your computer. It writes directly in the editing apps you already use: DaVinci Resolve, After Effects, and Premiere.\n\n[pause: 0.4s]\nYou record on your camera. Then it edits every single thing: the cut, the graphics, the color grade, the sound, the captions. Right there in your actual timeline, zero upload, zero web app, and zero manual work.",
+    "elevenlabs_settings": {
+      "voice_id": "CYw3kZ02Hs0563khs1Fj",
+      "stability": 0.55,
+      "similarity_boost": 0.75,
+      "style": 0.35,
+      "use_speaker_boost": true
+    }
+  }
+]

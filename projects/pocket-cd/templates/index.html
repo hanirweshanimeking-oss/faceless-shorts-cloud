@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket Creator Director (Pocket CD) - Studio Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090B10;
+      --surface: #10141E;
+      --surface-light: #181F2E;
+      --surface-border: #242E42;
+      --accent-green: #00FF88;
+      --accent-yellow: #FFDF38;
+      --accent-cyan: #00F0FF;
+      --accent-pink: #FF2A6D;
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: rgba(16, 20, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #FFDF38, #00FF88);
+      color: #000;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05em;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-green);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--surface-border);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      color: #000;
+      background: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    main {
+      flex: 1;
+      padding: 28px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-yellow { background: rgba(255, 223, 56, 0.15); color: var(--accent-yellow); border: 1px solid rgba(255, 223, 56, 0.3); }
+    .badge-cyan { background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 240, 255, 0.3); }
+    .badge-green { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); border: 1px solid rgba(0, 255, 136, 0.3); }
+
+    /* Ingredient Accordion */
+    .ingredient-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .ingredient-item {
+      background: var(--surface-light);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .ingredient-item:hover {
+      border-color: var(--accent-yellow);
+    }
+
+    .ingredient-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      border: 1px solid var(--surface-border);
+    }
+
+    .ingredient-info {
+      flex: 1;
+    }
+
+    .ingredient-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ingredient-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Director Command Bar */
+    .command-box {
+      display: flex;
+      gap: 12px;
+      background: var(--surface-light);
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--surface-border);
+      margin-bottom: 20px;
+    }
+
+    .command-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .btn {
+      background: var(--accent-green);
+      color: #000;
+      border: none;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--surface-light);
+      color: var(--text-primary);
+      border: 1px solid var(--surface-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--surface-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(0, 240, 255, 0.1);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Terminal log */
+    .terminal {
+      background: #05070A;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #A0AEC0;
+      min-height: 180px;
+      max-height: 320px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .terminal .hl-green { color: var(--accent-green); }
+    .terminal .hl-yellow { color: var(--accent-yellow); }
+    .terminal .hl-cyan { color: var(--accent-cyan); }
+
+    /* Video Reel Player */
+    .reel-viewport {
+      background: #000;
+      border: 2px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    .reel-viewport video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: var(--surface-light);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-badge">POCKET CD</div>
+      <div class="brand-title">
+        Pocket Creator Director
+        <span>// AI Studio & Gyan FFmpeg Compositor</span>
+      </div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab('signatures')">🧬 Style DNA</button>
+      <button class="nav-btn" onclick="switchTab('director')">🎬 Director Agent</button>
+      <button class="nav-btn" onclick="switchTab('storyteller')">🎙️ Storyteller & Voice</button>
+      <button class="nav-btn" onclick="switchTab('compositor')">🎞️ 9:16 Compositor</button>
+      <button class="nav-btn" onclick="switchTab('boards')">📋 Moodboards</button>
+      <button class="nav-btn" onclick="switchTab('exporters')">💾 Exporters (AE/Resolve/REAPER)</button>
+    </div>
+
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span>FFMPEG 9.0.2 READY</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: SIGNATURES & 11 INGREDIENTS -->
+    <section id="tab-signatures" class="tab-content active">
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div class="card-title">
+            <span>Reverse-Engineering DNA Extractor</span>
+            <span class="badge badge-yellow">11 MODULAR INGREDIENTS</span>
+          </div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+          Decompiles any video or creator style prompt into the 11 atomic editing ingredients: Flash Open, Poster Title Punch, Screen Name Reveal, Difference Pull Back, Face Match Cut, Grid Cut List, Quantity Or Quality, Flip Stack, Viewfinder REC, Counter Rate, and Granular SFX.
+        </p>
+
+        <div class="command-box">
+          <input type="text" id="dna-prompt-input" placeholder="Enter creator video path or style prompt (e.g. 'Viral Wall Street bio with yellow kinetic titles and face match cuts')...">
+          <button class="btn" onclick="extractDNA()">Decompile DNA</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Signatures List -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Active Style DNA Signatures</div>
+            <button class="btn btn-secondary" onclick="loadSignatures()">Refresh</button>
+          </div>
+          <div id="signatures-container">Loading signatures...</div>
+        </div>
+
+        <!-- 11 Ingredients Breakdown for Ackman Edit DNA -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span id="active-sig-title">Ackman Edit DNA</span>
+              <span class="badge badge-green">11 INGREDIENTS DECOMPILED</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted);">OVERLAY 1.2.0 • 1080x1920 60FPS</div>
+          </div>
+          <div id="ingredients-container" class="ingredient-list">Loading ingredients...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: DIRECTOR AGENT -->
+    <section id="tab-director" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🎬 Natural Language Director Agent</div>
+            <span class="badge badge-cyan">AUTONOMOUS FEEDBACK</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+            Issue one-prompt editing directives to adapt pacing, bloom glow, typography, audio ducking, and B-roll alignment.
+          </p>
+
+          <div class="chips-row">
+            <div class="chip" onclick="setDirectorCommand('Add high-pass anamorphic bloom to title')">✨ Add Bloom</div>
+            <div class="chip" onclick="setDirectorCommand('Tighten hook cut pacing to 0.9s')">⏱️ Tighten Cuts</div>
+            <div class="chip" onclick="setDirectorCommand('Increase speech ducking to -16dB')">🔉 Ducking -16dB</div>
+            <div class="chip" onclick="setDirectorCommand('Change kinetic font to Impact with neon yellow accent')">🔤 Impact Yellow</div>
+            <div class="chip" onclick="setDirectorCommand('Enable 180° shutter motion blur across cuts')">🌪️ Motion Blur</div>
+            <div class="chip" onclick="setDirectorCommand('Swap B-roll with frame 0015')">🔄 Swap B-roll</div>
+          </div>
+
+          <div class="command-box">
+            <input type="text" id="director-input" placeholder="Type director command (e.g. 'Add bloom and tighten cuts to 1.0s')...">
+            <button class="btn" onclick="sendDirectorCommand()">Execute Directive</button>
+          </div>
+
+          <div class="form-group">
+            <label>Current Applied Rules Manifest</label>
+            <div id="director-rules-view" class="terminal" style="max-height: 180px;">Awaiting command...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Director Feedback & Mutation Log</div>
+            <span class="badge badge-green">LIVE</span>
+          </div>
+          <div id="director-terminal" class="terminal">🎬 Pocket Creative Director Agent standby. Ready for instructions.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: STORYTELLER & VOICE -->
+    <section id="tab-storyteller" class="tab-content">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🎙️ Storyteller & Script Generator</div>
+            <span class="badge badge-yellow">ELEVENLABS V4 SYNTAX</span>
+          </div>
+          <div class="form-group">
+            <label>Topic / Concept</label>
+            <input type="text" id="story-topic" value="Pocket Creative Director Launch VSL" placeholder="e.g. Pocket Creative Director Launch VSL">
+          </div>
+          <div class="form-group">
+            <label>Voice Model Preset</label>
+            <select id="story-voice-preset">
+              <option value="carl_voice">Nate - Warm & Conversational (Carl's Voice)</option>
+              <option value="documentary_investor">Christopher - Deep & Authoritative</option>
+              <option value="viral_short_punch">Brian - High Energy Punch</option>
+            </select>
+          </div>
+          <button class="btn" style="margin-bottom: 16px;" onclick="generateScript()">Generate ElevenLabs V4 Script</button>
+
+          <div class="form-group">
+            <label>Script Content (with emotional bracket tags & pauses)</label>
+            <textarea id="story-content" rows="10" style="font-family: 'JetBrains Mono', monospace; font-size: 12px;"></textarea>
+          </div>
+
+          <button class="btn" style="background: var(--accent-cyan); color: #000;" onclick="synthesizeVoice()">
+            Synthesize Voiceover (Edge-TTS)
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Audio Player & Voiceover Timeline</div>
+            <span class="badge badge-green">HIGH FIDELITY</span>
+          </div>
+          <div id="audio-player-container" style="margin-bottom: 20px;">
+            <audio id="main-audio-player" controls style="width: 100%; border-radius: 8px;">
+              <source src="/static/assets/demo_narration.mp3" type="audio/mpeg">
+              Your browser does not support audio.
+            </audio>
+          </div>
+          <div class="terminal" id="story-log">
+[VOICE ENGINE] Loaded active voice profile: Carl's Voice.
+Synthesis ready. Edge-TTS neural fallback active.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: COMPOSITOR & RENDER -->
+    <section id="tab-compositor" class="tab-content">
+      <div class="grid-2">
+        <!-- Render Controls -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🎞️ Real FFmpeg 9:16 Vertical Reel Compositor</div>
+            <span class="badge badge-green">GYAN FFmpeg 9.0.2</span>
+          </div>
+
+          <div class="form-group">
+            <label>Kinetic Title Text</label>
+            <input type="text" id="render-title" value="BILL ACKMAN">
+          </div>
+          <div class="form-group">
+            <label>Screen Name Reveal (Credential)</label>
+            <input type="text" id="render-sub" value="PERSHING SQUARE CAPITAL">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Metric Counter Label</label>
+              <input type="text" id="render-counter-lbl" value="AUM">
+            </div>
+            <div class="form-group">
+              <label>Counter Target Value ($)</label>
+              <input type="number" id="render-counter-val" value="18000000000">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Resolution</label>
+              <select id="render-resolution">
+                <option value="720x1280">720x1280 (Fast Draft Preview)</option>
+                <option value="1080x1920">1080x1920 (Production 9:16 Reel)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Duration (Seconds)</label>
+              <input type="number" id="render-duration" value="8" min="3" max="30">
+            </div>
+          </div>
+
+          <button class="btn" style="width: 100%; justify-content: center; padding: 14px; font-size: 15px;" onclick="renderReel()">
+            ⚡ Render Vertical Reel with FFmpeg
+          </button>
+
+          <div style="margin-top: 16px;" id="render-status-log" class="terminal">
+FFmpeg compositor idle. Click render to build 9:16 reel with bloom, HUD, and ducking.
+          </div>
+        </div>
+
+        <!-- Reel Preview -->
+        <div class="card" style="text-align: center;">
+          <div class="card-header">
+            <div class="card-title">9:16 Vertical Reel Master Preview</div>
+            <span class="badge badge-yellow">LIVE RENDER</span>
+          </div>
+          <div class="reel-viewport">
+            <video id="reel-video-player" controls autoplay muted loop>
+              <source src="/static/assets/pocket_cd_generated_edit.mp4" type="video/mp4">
+              Your browser does not support video.
+            </video>
+          </div>
+          <div style="margin-top: 14px;">
+            <a id="download-reel-btn" href="/static/assets/pocket_cd_generated_edit.mp4" download="pocket_cd_reel.mp4" class="btn btn-secondary">
+              📥 Download Master MP4
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: BOARDS -->
+    <section id="tab-boards" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Production Moodboards & Reference Flow</div>
+          <button class="btn" onclick="addNewCardPrompt()">+ Add Card</button>
+        </div>
+        <div id="boards-container" class="grid-3">Loading moodboards...</div>
+      </div>
+    </section>
+
+    <!-- TAB 6: EXPORTERS -->
+    <section id="tab-exporters" class="tab-content">
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div class="card-title">💾 Multi-Engine NLE & DAW Script Exporters</div>
+          <span class="badge badge-cyan">ZERO WEB APP LOCK-IN</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 14px;">
+          Pocket Creator Director writes directly into the editing applications you already use. Export complete timeline compositions with keyframed typography, markers, and audio ducking scripts.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <!-- After Effects -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Adobe After Effects</div>
+            <span class="badge badge-yellow">.JSX SCRIPT</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+            Generates ExtendScript JSX code creating 1080x1920 60fps comp, kinetic title layers with scale bounce, chromatic bloom glow, and 11 style markers.
+          </p>
+          <a href="/api/export/jsx/ackman-edit-dna" download class="btn" style="width: 100%; justify-content: center;">
+            Download AE Script (.jsx)
+          </a>
+        </div>
+
+        <!-- DaVinci Resolve -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">DaVinci Resolve Studio</div>
+            <span class="badge badge-pink">.PY API</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+            Python script using the official DaVinciResolveScript API to assemble vertical 9:16 timeline, insert Face Match Cut markers, and Fairlight sidechain ducking.
+          </p>
+          <a href="/api/export/py/ackman-edit-dna" download class="btn" style="width: 100%; justify-content: center; background: var(--accent-pink); color: #fff;">
+            Download Resolve Script (.py)
+          </a>
+        </div>
+
+        <!-- REAPER -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Cockos REAPER DAW</div>
+            <span class="badge badge-green">.LUA SCRIPT</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+            REAPER ReaScript Lua that sets up Dialogue, SFX, and BGM tracks with auxiliary channel 3/4 sidechain routing and ReaComp -12dB speech ducking.
+          </p>
+          <a href="/api/export/lua/ackman-edit-dna" download class="btn" style="width: 100%; justify-content: center; background: var(--accent-green); color: #000;">
+            Download REAPER Script (.lua)
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tab Switching
+    function switchTab(tabName) {
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.textContent.toLowerCase().includes(tabName));
+      if (activeBtn) activeBtn.classList.add('active');
+      const targetTab = document.getElementById('tab-' + tabName);
+      if (targetTab) targetTab.classList.add('active');
+    }
+
+    // Load Signatures & Ingredients
+    async function loadSignatures() {
+      try {
+        const res = await fetch('/api/signatures');
+        const sigs = await res.json();
+        const container = document.getElementById('signatures-container');
+        if (!sigs.length) {
+          container.innerHTML = '<p>No signatures found.</p>';
+          return;
+        }
+
+        container.innerHTML = sigs.map(s => `
+          <div style="background: var(--surface-light); border: 1px solid var(--surface-border); border-radius: 8px; padding: 12px; margin-bottom: 10px; cursor: pointer;" onclick="selectSignature('${s.id}')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: var(--accent-cyan); font-size: 15px;">${s.title}</strong>
+              <span class="badge badge-yellow">${s.category || 'Commercial'}</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 6px 0;">${s.description || ''}</p>
+            <div style="display: flex; gap: 8px; font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">
+              <span>Bloom: ${s.rules?.bloom_glow ? 'ON' : 'OFF'}</span> •
+              <span>Blur: ${s.rules?.motion_blur ? 'ON' : 'OFF'}</span> •
+              <span>Ducking: ${s.rules?.speech_ducking_db || -12}dB</span>
+            </div>
+          </div>
+        `).join('');
+
+        // Select first signature by default
+        if (sigs[0]) {
+          renderIngredients(sigs[0]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function selectSignature(id) {
+      const res = await fetch('/api/signatures/' + id);
+      const sig = await res.json();
+      renderIngredients(sig);
+    }
+
+    function renderIngredients(sig) {
+      document.getElementById('active-sig-title').textContent = sig.title;
+      const container = document.getElementById('ingredients-container');
+      const ingredients = sig.ingredients || [];
+      if (!ingredients.length) {
+        container.innerHTML = '<p style="color: var(--text-muted);">No ingredients decompiled yet for this style.</p>';
+        return;
+      }
+
+      container.innerHTML = ingredients.map(ing => `
+        <div class="ingredient-item">
+          <img src="${ing.thumbnail || '/static/assets/frame_0001.jpg'}" class="ingredient-thumb" alt="thumb">
+          <div class="ingredient-info">
+            <div class="ingredient-title">
+              <span>${ing.title}</span>
+              <span class="badge badge-yellow" style="font-size: 10px;">${ing.category}</span>
+            </div>
+            <div class="ingredient-meta">
+              <span>Duration: ${ing.duration}</span> • <span>${ing.app}</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+              ${ing.description}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // DNA Extractor
+    async function extractDNA() {
+      const prompt = document.getElementById('dna-prompt-input').value;
+      if (!prompt) return alert('Please enter a prompt or video path');
+      try {
+        const res = await fetch('/api/dna/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: prompt })
+        });
+        const sig = await res.json();
+        alert('DNA Decompiled into 11 ingredients: ' + sig.title);
+        loadSignatures();
+      } catch (err) {
+        alert('Decompilation failed: ' + err);
+      }
+    }
+
+    // Director Agent
+    function setDirectorCommand(cmd) {
+      document.getElementById('director-input').value = cmd;
+    }
+
+    async function sendDirectorCommand() {
+      const cmd = document.getElementById('director-input').value;
+      if (!cmd) return;
+      const terminal = document.getElementById('director-terminal');
+      terminal.textContent += `\n> Directing: "${cmd}"...\n`;
+      try {
+        const res = await fetch('/api/director/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ command: cmd, signature_id: 'ackman-edit-dna' })
+        });
+        const data = await res.json();
+        terminal.textContent += `\n${data.summary}\n`;
+        terminal.scrollTop = terminal.scrollHeight;
+        document.getElementById('director-rules-view').textContent = JSON.stringify(data.updated_signature.rules, null, 2);
+      } catch (err) {
+        terminal.textContent += `\nError: ${err}\n`;
+      }
+    }
+
+    // Storyteller & Voice
+    async function generateScript() {
+      const topic = document.getElementById('story-topic').value;
+      const style = document.getElementById('story-voice-preset').value;
+      const res = await fetch('/api/scripts/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, style })
+      });
+      const data = await res.json();
+      document.getElementById('story-content').value = data.content;
+      document.getElementById('story-log').textContent = `[STORY GENERATOR] Script generated (${data.model}) with emotional tags.`;
+    }
+
+    async function synthesizeVoice() {
+      const text = document.getElementById('story-content').value;
+      if (!text) return alert('Script is empty');
+      const log = document.getElementById('story-log');
+      log.textContent += '\n[EDGE-TTS] Synthesizing speech...';
+      try {
+        const res = await fetch('/api/voice/synthesize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, voice: 'carl' })
+        });
+        const data = await res.json();
+        log.textContent += `\n[EDGE-TTS] Audio generated: ${data.audio_path} (${data.duration_sec}s, ${data.word_count} words)`;
+        const player = document.getElementById('main-audio-player');
+        player.src = data.audio_path;
+        player.play();
+      } catch (err) {
+        log.textContent += `\nError: ${err}`;
+      }
+    }
+
+    // FFmpeg Compositor
+    async function renderReel() {
+      const title = document.getElementById('render-title').value;
+      const sub = document.getElementById('render-sub').value;
+      const counterLbl = document.getElementById('render-counter-lbl').value;
+      const counterVal = parseInt(document.getElementById('render-counter-val').value);
+      const resolution = document.getElementById('render-resolution').value;
+      const duration = parseFloat(document.getElementById('render-duration').value);
+
+      const statusLog = document.getElementById('render-status-log');
+      statusLog.textContent = `[FFMPEG] Starting vertical 9:16 reel composition (${resolution}, ${duration}s)...\nProcessing layers: Flash Open -> Title Bloom -> REC HUD -> Ducking...`;
+
+      try {
+        const res = await fetch('/api/render', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            signature_id: 'ackman-edit-dna',
+            title_text: title,
+            subtitle_text: sub,
+            counter_label: counterLbl,
+            target_value: counterVal,
+            resolution: resolution,
+            duration_sec: duration
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          statusLog.textContent += `\n[SUCCESS] Render finished in ${data.render_time_sec}s!\nFile: ${data.filename} (${data.size_mb} MB)\nResolution: ${data.resolution} @ ${data.fps}fps\nDucking: ${data.rules_applied.speech_ducking_db}dB`;
+          const vidPlayer = document.getElementById('reel-video-player');
+          vidPlayer.src = data.web_url;
+          vidPlayer.load();
+          vidPlayer.play();
+          document.getElementById('download-reel-btn').href = data.web_url;
+        } else {
+          statusLog.textContent += `\n[FAILED] ${data.error}`;
+        }
+      } catch (err) {
+        statusLog.textContent += `\nError: ${err}`;
+      }
+    }
+
+    // Boards
+    async function loadBoards() {
+      try {
+        const res = await fetch('/api/boards');
+        const boards = await res.json();
+        const container = document.getElementById('boards-container');
+        if (!boards.length) {
+          container.innerHTML = '<p>No boards found.</p>';
+          return;
+        }
+
+        const cards = boards[0].cards || [];
+        container.innerHTML = cards.map(c => `
+          <div class="card">
+            <div class="card-header">
+              <strong style="font-size: 14px;">${c.title}</strong>
+              <span class="badge badge-yellow">${c.type}</span>
+            </div>
+            ${c.url ? (c.type === 'video' 
+              ? `<video src="${c.url}" controls style="width: 100%; border-radius: 6px;"></video>`
+              : `<img src="${c.url}" style="width: 100%; height: 160px; object-fit: cover; border-radius: 6px;">`
+            ) : ''}
+            ${c.content ? `<div style="font-size: 13px; color: var(--text-secondary); white-space: pre-wrap; margin-top: 8px;">${c.content}</div>` : ''}
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function addNewCardPrompt() {
+      const title = prompt('Card title:');
+      if (!title) return;
+      const notes = prompt('Card notes / takeaways:');
+      await fetch('/api/boards/board_1/cards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, type: 'notes', content: notes })
+      });
+      loadBoards();
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSignatures();
+      loadBoards();
+      generateScript();
+    });
+  </script>
+</body>
+</html>

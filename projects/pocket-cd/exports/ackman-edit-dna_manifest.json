@@ -1,0 +1,155 @@
+{
+  "id": "ackman-edit-dna",
+  "title": "Ackman Edit DNA",
+  "version": "OVERLAY 1.2.0",
+  "fps": "1080x1920 60FPS",
+  "engines": "AFTER EFFECTS, DAVINCI RESOLVE",
+  "category": "Commercial",
+  "styles_count": 11,
+  "ingredients_count": 11,
+  "status": "active",
+  "thumbnail": "/static/assets/frame_0025.jpg",
+  "description": "Reverse-engineered editing DNA of the viral Bill Ackman biographical reel by @metromedia.house. Fast-paced retention hook, kinetic poster typography, face match cutting, and layered granular sound design.",
+  "rules": {
+    "motion_blur": true,
+    "bloom_glow": true,
+    "face_match_lock": true,
+    "speech_ducking_db": -13.5,
+    "hook_duration_sec": 0.9,
+    "target_aspect_ratio": "9:16",
+    "font_family": "Montserrat Black",
+    "primary_color": "#FFDF38"
+  },
+  "takes": [
+    {
+      "id": "take_1",
+      "name": "Take 1 - Hook Punch",
+      "duration": "01.2s",
+      "grade": "Graded",
+      "image": "/static/assets/frame_0015.jpg"
+    },
+    {
+      "id": "take_2",
+      "name": "Take 2 - High Contrast",
+      "duration": "02.4s",
+      "grade": "Arri Rec709",
+      "image": "/static/assets/frame_0007.jpg"
+    },
+    {
+      "id": "take_3",
+      "name": "Take 3 - Match Cut Lock",
+      "duration": "01.8s",
+      "grade": "Log C3",
+      "image": "/static/assets/frame_0008.jpg"
+    },
+    {
+      "id": "take_4",
+      "name": "Take 4 - Wide Pullback",
+      "duration": "03.1s",
+      "grade": "Film Convert",
+      "image": "/static/assets/frame_0009.jpg"
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "ing_1",
+      "title": "Ackman DNA: Edit Flash Open",
+      "app": "After Effects",
+      "category": "Transition",
+      "duration": "00:00 - 00:01.2",
+      "description": "DRAFT / not the version you're before it ran in this original post. Use case: The first seconds, viral hook opening cut with instantaneous white strobe flash and bass impact.",
+      "thumbnail": "/static/assets/frame_0001.jpg"
+    },
+    {
+      "id": "ing_2",
+      "title": "Ackman DNA: Poster Title Punch",
+      "app": "After Effects",
+      "category": "Text",
+      "duration": "00:01.2 - 00:02.8",
+      "description": "DRAFT / not the version you're before it ran in this original post. Use case: text that seals the hook with heavy tracked kinetic text and soft yellow/cyan bloom.",
+      "thumbnail": "/static/assets/frame_0003.jpg"
+    },
+    {
+      "id": "ing_3",
+      "title": "Ackman DNA: Screen Name Reveal",
+      "app": "After Effects",
+      "category": "Text",
+      "duration": "00:02.8 - 00:04.5",
+      "description": "DRAFT / not the version you're before it ran in this original post. The context the person is talking about with minimalist credentialing typography.",
+      "thumbnail": "/static/assets/frame_0011.jpg"
+    },
+    {
+      "id": "ing_4",
+      "title": "Ackman DNA: Difference Pull Back",
+      "app": "After Effects",
+      "category": "Camera",
+      "duration": "00:04.5 - 00:06.2",
+      "description": "DRAFT / not the version you're before it ran in this original post. The math about the person pulling back to their body of work on a stark backdrop.",
+      "thumbnail": "/static/assets/frame_0005.jpg"
+    },
+    {
+      "id": "ing_5",
+      "title": "Ackman DNA: Face Match Cut",
+      "app": "After Effects",
+      "category": "Transition",
+      "duration": "00:06.2 - 00:08.0",
+      "description": "DRAFT / not the version you're before it ran in this original post. The person in person or replica, over their own history head rolling.",
+      "thumbnail": "/static/assets/frame_0007.jpg"
+    },
+    {
+      "id": "ing_6",
+      "title": "Ackman DNA: Grid Cut List",
+      "app": "After Effects",
+      "category": "Motion",
+      "duration": "00:08.0 - 00:10.1",
+      "description": "Rapid 3x3 rhythmic contact sheet flash cut depicting evidence, achievements, and archival press snippets.",
+      "thumbnail": "/static/assets/frame_0027.jpg"
+    },
+    {
+      "id": "ing_7",
+      "title": "Ackman DNA: Quantity Or Quality",
+      "app": "After Effects",
+      "category": "Text",
+      "duration": "00:10.1 - 00:12.0",
+      "description": "Dueling typography comparison layout split down the middle with directional motion blur and high-pass swoosh.",
+      "thumbnail": "/static/assets/frame_0028.jpg"
+    },
+    {
+      "id": "ing_8",
+      "title": "Ackman DNA: Flip Stack And Notes",
+      "app": "After Effects",
+      "category": "3D",
+      "duration": "00:12.0 - 00:14.2",
+      "description": "Tactile card stack drop with physics bounce and smooth drop shadows highlighting key take-aways.",
+      "thumbnail": "/static/assets/frame_0029.jpg"
+    },
+    {
+      "id": "ing_9",
+      "title": "Ackman DNA: Viewfinder REC",
+      "app": "After Effects",
+      "category": "Camera",
+      "duration": "00:14.2 - 00:16.5",
+      "description": "Authentic camera HUD overlay with blinking red recording dot, crosshairs, shutter clicks, and ISO indicators.",
+      "thumbnail": "/static/assets/frame_0030.jpg"
+    },
+    {
+      "id": "ing_10",
+      "title": "Ackman DNA: Counter Rate",
+      "app": "After Effects",
+      "category": "Motion",
+      "duration": "00:16.5 - 00:18.2",
+      "description": "Digital metric odometer rolling up from zero to viral numbers with mechanical tally clicks.",
+      "thumbnail": "/static/assets/frame_0024.jpg"
+    },
+    {
+      "id": "ing_11",
+      "title": "Ackman DNA: Granular Sound Design",
+      "app": "REAPER Script",
+      "category": "Sound",
+      "duration": "00:00 - 00:22.0",
+      "description": "ElevenLabs SFX and multi-track REAPER automation with sidechain speech ducking, tactile risers, and impact drops.",
+      "thumbnail": "/static/assets/frame_0031.jpg"
+    }
+  ],
+  "last_director_prompt": "Add soft bloom to poster title and tighten hook cut to 0.9s"
+}

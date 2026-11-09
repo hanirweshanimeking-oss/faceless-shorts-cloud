@@ -1,0 +1,164 @@
+[
+  {
+    "id": "char_ike_dragon",
+    "name": "Ike Dragon",
+    "alias": "The Ghost Heir / Siddhartha (The Golden Sovereign)",
+    "age": "18 (Chronological Mortal) / Multi-Epoch (Soul)",
+    "gender": "Male",
+    "height_cm": 182,
+    "build": "Lean, deceptive physical density, athletic predator posture",
+    "facial_structure": "Razor-sharp jawline, pale complexion, thin white scar across left temple, unbothered aristocratic expression",
+    "hair": {
+      "style": "Messy, layered pitch-black anime hair falling across forehead and between eyes",
+      "color": "Obsidian black with subtle golden ether sheen when power activates"
+    },
+    "eyes": {
+      "description": "Deep obsidian black under normal state; left pupil ignites into radiant molten Sovereign Gold when authority leaks"
+    },
+    "clothing": {
+      "main_attire": "Worn red-and-black delivery windbreaker over tailored black tactical turtleneck, dark cargo trousers, combat boots",
+      "formal_variant": "Tailored charcoal double-breasted bespoke suit, unbuttoned collar, father's scorched platinum watch on left wrist",
+      "accessories": "Father's scorched platinum watch, golden dragon pendant hidden beneath collar"
+    },
+    "weapons": [
+      {
+        "name": "Memory Reclamation Keys",
+        "description": "20 jagged golden crystalline soul-keys hidden within his physical bone marrow"
+      },
+      {
+        "name": "Vajra Dragon Martial Arts",
+        "description": "Ancient cosmic close-quarters unarmed combat combining bio-electric acceleration and bone-shattering strikes"
+      }
+    ],
+    "personality_traits": [
+      "10,000 IQ transcendent tactical intellect",
+      "Ice-cold psychological control; pulse remains under 50 BPM in lethal danger",
+      "Unflinchingly patient; capable of waiting years to strike with surgical finality",
+      "Fiercely protective of the few who earn his loyalty",
+      "Ruthless against traitors; never offers second chances"
+    ]
+  },
+  {
+    "id": "char_devraj_rathore",
+    "name": "Devraj Rathore",
+    "alias": "The Jackal / Supreme Underworld Sovereign",
+    "age": "48",
+    "gender": "Male",
+    "height_cm": 188,
+    "build": "Broad-shouldered, impeccably conditioned corporate titan",
+    "facial_structure": "Silver-templed slicked-back hair, manic wolfish smile, cold predatory hazel eyes, groomed salt-and-pepper stubble",
+    "hair": {
+      "style": "Neatly slicked back with silver temples",
+      "color": "Dark grey with silver streaks"
+    },
+    "eyes": {
+      "description": "Predatory amber-hazel eyes that gleam with sadistic calculation"
+    },
+    "clothing": {
+      "main_attire": "Charcoal cashmere overcoat over Italian bespoke three-piece suit, oxblood leather dress shoes, gold signet ring on pinky finger"
+    },
+    "weapons": [
+      {
+        "name": "Underworld Syndicate & Mercenary Armies",
+        "description": "Private military contractors, corrupt law enforcement, and heavily armed cartel hit squads"
+      }
+    ],
+    "personality_traits": [
+      "Sadistic sociopath masked behind aristocratic manners and polite greetings",
+      "Obsessed with total dynastic eradication ('Never leave an enemy's heir alive')",
+      "Views entire cities as commercial hunting grounds"
+    ]
+  },
+  {
+    "id": "char_hanirwesh",
+    "name": "Hanirwesh Kaivalya",
+    "alias": "The Crimson Sovereign / Bloodfire Juggernaut",
+    "age": "19 (Mortal) / Multi-Epoch (Soul)",
+    "gender": "Male",
+    "height_cm": 196,
+    "build": "Massive 6'5\" mountain of striated bronze muscle and feral power",
+    "facial_structure": "Scarred, feral features, prominent canine fangs, unhinged wild grin in battle",
+    "hair": {
+      "style": "Spiky, wild raven hair with crimson undertones whipping in combat wind",
+      "color": "Black with blood-red streaks"
+    },
+    "eyes": {
+      "description": "White voids during berserk state; brilliant radiant ruby-crimson when awakened by Key 03"
+    },
+    "clothing": {
+      "main_attire": "Tattered black military greatcoat worn open, combat wraps around knuckles and forearms, dark combat fatigue pants"
+    },
+    "weapons": [
+      {
+        "name": "Bloodfire Calamity",
+        "description": "4,000°C cosmic atmospheric fire that vaporizes concrete, steel, and armor"
+      }
+    ],
+    "personality_traits": [
+      "Fearless berserker who laughs hysterically at impossible odds",
+      "Absolute fraternal brotherhood with Siddhartha",
+      "Hates deceptive politics; prefers crushing problems with his bare fists"
+    ]
+  },
+  {
+    "id": "char_ananya_dragon",
+    "name": "Ananya Dragon",
+    "alias": "The Iron Maiden of Dragon Corp",
+    "age": "29",
+    "gender": "Female",
+    "height_cm": 172,
+    "build": "Elegant, commanding, poise of a corporate CEO who has survived a decade of assassinations",
+    "facial_structure": "Sharp patrician cheekbones, expressive dark eyes, frameless titanium glasses",
+    "hair": {
+      "style": "Sleek straight obsidian hair styled in a severe high ponytail or executive bob",
+      "color": "Glossy black"
+    },
+    "eyes": {
+      "description": "Dark brown, hyper-perceptive, guarded by deep grief and steely resolve"
+    },
+    "clothing": {
+      "main_attire": "Sharp monochrome business suits, structured ivory blazers, minimalist platinum jewelry"
+    },
+    "weapons": [
+      {
+        "name": "Corporate Warfare & Hidden Reserves",
+        "description": "Auditing leverage, hidden trust funds, and loyalist private security"
+      }
+    ],
+    "personality_traits": [
+      "Brilliant financial and corporate strategist",
+      "Haunted by the night her family died, blaming herself for not stopping Raghav",
+      "Secretly searching for proof of what happened to little brother Ike"
+    ]
+  },
+  {
+    "id": "char_narasimha_naidu",
+    "name": "Narasimha Naidu",
+    "alias": "The Crescent Butcher of Old City",
+    "age": "48",
+    "gender": "Male",
+    "height_cm": 185,
+    "build": "Heavy, barrel-chested, brutal street fighter build",
+    "facial_structure": "Deep jagged crescent scar across left eyebrow, chewing paan, brutal sneer",
+    "hair": {
+      "style": "Short, thinning grey hair parted sideways",
+      "color": "Salt and pepper"
+    },
+    "eyes": {
+      "description": "Bloodshot, yellowed, ruthless gangster glare"
+    },
+    "clothing": {
+      "main_attire": "Blood-splattered white khadi linen shirt, gold rope chain, dark dhoti/trousers, leather sandals"
+    },
+    "weapons": [
+      {
+        "name": "Chrome-plated .50 AE Desert Eagle & 3-foot Talwar",
+        "description": "The weapon used to execute Arjun and Meera Dragon"
+      }
+    ],
+    "personality_traits": [
+      "Brutal, loud, arrogant Old City cartel kingpin",
+      "Devraj's regional executioner in Hyderabad"
+    ]
+  }
+]

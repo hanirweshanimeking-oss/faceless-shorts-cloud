@@ -1,0 +1,9 @@
+{
+  "id": "test_sig_export",
+  "title": "Test Signature Reel",
+  "rules": {
+    "bloom_glow": true,
+    "motion_blur": true,
+    "speech_ducking_db": -14.0
+  }
+}

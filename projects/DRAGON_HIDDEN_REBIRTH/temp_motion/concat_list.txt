@@ -1,0 +1,8 @@
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_00.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_01.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_02.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_03.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_04.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_05.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_06.mp4'
+file 'C:\Users\DESKTOP\Downloads\money\DRAGON_HIDDEN_REBIRTH\temp_motion\clip_07.mp4'
