@@ -25,6 +25,7 @@ from faceless_engine.subtitle_engine import (
     group_words_into_phrases,
     generate_viral_ass_subtitles
 )
+from faceless_engine.director_agent import DirectorAgent, VisualDirection
 from faceless_engine.visual_engine import TallTaleRenderer
 from faceless_engine.audio_mixer import synthesize_sfx, mix_master_audio
 from faceless_engine.compositor import (
@@ -47,9 +48,18 @@ def create_faceless_short(
     work_dir = os.path.join(OUTPUT_DIR, project_slug)
     os.makedirs(work_dir, exist_ok=True)
     
+    # 0. 🎯 AUTONOMOUS DIRECTOR AGENT
+    direction: VisualDirection = DirectorAgent.direct_production(
+        prompt=prompt,
+        requested_style=style,
+        requested_voice=voice
+    )
+
     print("=" * 70)
     print("🎬 STARTING FACELESS SHORTS AUTOMATION PIPELINE")
-    print(f"📌 Style: {style}")
+    print(f"📌 Style: {direction.style}")
+    print(f"📌 Director Voice: {direction.voice}")
+    print(f"📌 Character Archetype: {direction.character_archetype}")
     print(f"📌 Project: {project_slug}")
     print(f"📌 Work Directory: {work_dir}")
     print("=" * 70)
@@ -58,7 +68,7 @@ def create_faceless_short(
     # 1. ✍️ SCRIPT GENERATION
     # -------------------------------------------------------------
     print("\n[Step 1/6] ✍️ Writing high-retention viral script...")
-    script: ViralScript = generate_script_for_topic(title=prompt, style=style)
+    script: ViralScript = generate_script_for_topic(title=prompt, style=direction.style)
     script_path = os.path.join(work_dir, "script.json")
     with open(script_path, "w", encoding="utf-8") as f:
         json.dump({
@@ -74,12 +84,12 @@ def create_faceless_short(
     # -------------------------------------------------------------
     # 2. 🎙️ ULTRA-REALISTIC AI VOICEOVER
     # -------------------------------------------------------------
-    print("\n[Step 2/6] 🎙️ Generating ultra-realistic neural voiceover...")
+    print(f"\n[Step 2/6] 🎙️ Generating neural voiceover ({direction.voice})...")
     voice_wav_path = os.path.join(work_dir, "voice.wav")
     generate_voiceover(
         text=script.full_narration,
         output_path=voice_wav_path,
-        voice_preference=voice,
+        voice_preference=direction.voice,
         speed=1.06
     )
     print(f"  ✓ Voiceover generated: {voice_wav_path}")
@@ -104,7 +114,7 @@ def create_faceless_short(
     # -------------------------------------------------------------
     # 4. 🎨 ANIMATED 3D & CARTOON VISUAL RENDERING
     # -------------------------------------------------------------
-    print("\n[Step 4/6] 🎨 Rendering Tall Tale 3D cartoon visuals (1080x1920 @ 30fps)...")
+    print(f"\n[Step 4/6] 🎨 Rendering {direction.style} dynamic visuals (1080x1920 @ 30fps)...")
     renderer = TallTaleRenderer(width=1080, height=1920)
     
     # Calculate per-scene duration proportional to script beat duration
@@ -121,6 +131,9 @@ def create_faceless_short(
             scene_idx=s.scene_index,
             duration_sec=actual_scene_duration,
             output_mp4_path=scene_mp4,
+            scene_beat=s,
+            style=direction.style,
+            title=prompt,
             fps=30
         )
         scene_video_paths.append(scene_mp4)

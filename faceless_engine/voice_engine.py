@@ -82,16 +82,49 @@ async def synthesize_edgetts_async(
         print(f"[VoiceEngine] Edge-TTS error: {e}")
         return False
 
+# Mapping Kokoro voice aliases to Microsoft Edge Neural voices for high-fidelity fallback
+EDGE_VOICE_MAP = {
+    "am_adam": "en-US-ChristopherNeural",
+    "am_michael": "en-US-GuyNeural",
+    "am_echo": "en-US-EricNeural",
+    "af_bella": "en-US-JennyNeural",
+    "af_nicole": "en-US-AriaNeural",
+    "am_fenrir": "en-GB-RyanNeural",
+    "am_liam": "en-GB-ThomasNeural",
+    "am_onyx": "en-US-RogerNeural",
+    "af_sarah": "en-GB-SoniaNeural",
+    "adam": "en-US-ChristopherNeural",
+    "michael": "en-US-GuyNeural",
+    "echo": "en-US-EricNeural",
+    "bella": "en-US-JennyNeural",
+    "nicole": "en-US-AriaNeural",
+    "fenrir": "en-GB-RyanNeural",
+    "liam": "en-GB-ThomasNeural",
+    "onyx": "en-US-RogerNeural",
+    "eric": "en-US-EricNeural",
+    "guy": "en-US-GuyNeural",
+    "ryan": "en-GB-RyanNeural",
+    "jenny": "en-US-JennyNeural"
+}
+
+def resolve_edge_voice(voice_preference: str) -> str:
+    """Resolves a requested voice identifier to an active Edge-TTS neural voice."""
+    if not voice_preference:
+        return "en-US-ChristopherNeural"
+    if "-" in voice_preference and voice_preference.endswith("Neural"):
+        return voice_preference
+    return EDGE_VOICE_MAP.get(voice_preference.lower(), "en-US-ChristopherNeural")
+
 def generate_voiceover(
     text: str,
     output_path: str,
-    voice_preference: str = "am_adam",
+    voice_preference: str = "en-US-ChristopherNeural",
     speed: float = 1.05
 ) -> str:
     """
     Main voice generator:
     1. Attempts local Kokoro ONNX model first ($0, zero internet required).
-    2. Falls back to Edge-TTS neural narration if Kokoro unavailable.
+    2. Falls back to Edge-TTS neural narration with the resolved distinct voice.
     """
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     
@@ -101,17 +134,18 @@ def generate_voiceover(
         print(f"[VoiceEngine] Successfully generated voice with Kokoro ONNX -> {output_path}")
         return output_path
         
-    # 2. Try Edge-TTS fallback
-    print("[VoiceEngine] Falling back to Edge-TTS neural narration...")
+    # 2. Try Edge-TTS fallback with chosen persona voice
+    resolved_voice = resolve_edge_voice(voice_preference)
+    print(f"[VoiceEngine] Synthesizing neural narration with Edge-TTS voice: '{resolved_voice}'...")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     edge_success = loop.run_until_complete(
-        synthesize_edgetts_async(text, output_path, voice="en-US-ChristopherNeural")
+        synthesize_edgetts_async(text, output_path, voice=resolved_voice)
     )
     loop.close()
     
     if edge_success:
-        print(f"[VoiceEngine] Successfully generated voice with Edge-TTS -> {output_path}")
+        print(f"[VoiceEngine] Successfully generated voice with Edge-TTS ({resolved_voice}) -> {output_path}")
         return output_path
         
     raise RuntimeError(f"Failed to generate voiceover for text: {text[:50]}...")

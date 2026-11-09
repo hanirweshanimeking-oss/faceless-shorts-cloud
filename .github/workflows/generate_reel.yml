@@ -12,9 +12,9 @@ on:
         required: false
         default: 'Tall Tale 3D'
       voice:
-        description: 'Voice identifier'
+        description: 'Voice identifier (auto, en-US-EricNeural, en-GB-RyanNeural, en-US-JennyNeural, en-US-ChristopherNeural)'
         required: false
-        default: 'en-US-ChristopherNeural'
+        default: 'auto'
       publish_platforms:
         description: 'Publishing targets (ALL, YOUTUBE, INSTAGRAM, TELEGRAM)'
         required: false
@@ -60,7 +60,7 @@ jobs:
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
             curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
               -H "Content-Type: application/json" \
-              -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n\\n⏳ Synthesizing voice, 3D scenes & viral subtitles in cloud...\", \"parse_mode\": \"Markdown\"}"
+              -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n🎙️ *Voice:* ${{ inputs.voice }}\\n\\n⏳ Synthesizing adaptive scenes, character direction & viral subtitles...\", \"parse_mode\": \"Markdown\"}"
           fi
 
       - name: Generate Faceless Short Video
@@ -68,7 +68,11 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          python -m faceless_engine.cli --prompt "${{ inputs.prompt }}" --style "${{ inputs.style }}" --slug "${{ inputs.slug }}"
+          VOICE_FLAG=""
+          if [ "${{ inputs.voice }}" != "auto" ] && [ -n "${{ inputs.voice }}" ]; then
+            VOICE_FLAG="--voice ${{ inputs.voice }}"
+          fi
+          python -m faceless_engine.cli --prompt "${{ inputs.prompt }}" --style "${{ inputs.style }}" --slug "${{ inputs.slug }}" $VOICE_FLAG
 
       - name: Create Public Video Release (Permanent CDN for Meta & YouTube)
         env:
