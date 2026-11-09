@@ -13,6 +13,11 @@ on:
         type: boolean
         default: true
 
+permissions:
+  contents: write
+  actions: read
+  issues: write
+
 jobs:
   run_agent:
     runs-on: ubuntu-latest
