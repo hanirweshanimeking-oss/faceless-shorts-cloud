@@ -9,11 +9,14 @@ Operated 24/7 remotely by **Hanirwesh** via Telegram (`@hanirwesh_ai_bot`) while
 ### 1. The Total Antigravity Cloud Autonomous Agent (`antigravity_cloud_agent.py`)
 - Full autonomous pair programming and coding agent powered by Groq & Gemini.
 - Capabilities:
-  - `run_command`: Executes bash/shell commands in the cloud runner.
+  - `run_opencode`: Delegates complex coding tasks, refactoring, bug fixes, or PR review to OpenCode CLI (`opencode run`).
+  - `clone_repository`: Clones ANY Git repository from the internet into `repos/`, auto-installs dependencies, and integrates features dynamically.
+  - `run_command`: Executes bash/shell commands in the cloud runner with root privileges.
   - `read_file` & `write_file`: Reads, creates, and refactors workspace code.
+  - `synthesize_and_register_tool`: Dynamically creates and registers new Python tools at runtime.
   - `produce_video`: Calls the unified video dispatcher.
   - `notify_telegram`: Directly messages Hanirwesh with logs, diffs, and progress reports.
-- Dispatchable 24/7 via `/agent <task>`, `/code <task>`, or `/task <task>` on Telegram.
+- Dispatchable 24/7 via `/opencode <task>`, `/agent <task>`, `/code <task>`, or `/clone <repo_url>` on Telegram.
 
 ### 2. Dragon Studios 10-Stage Multi-Agent Agency
 - **10 Autonomous Cognitive Agents**:
@@ -42,7 +45,9 @@ Operated 24/7 remotely by **Hanirwesh** via Telegram (`@hanirwesh_ai_bot`) while
 
 | Command | Action | Output |
 | :--- | :--- | :--- |
+| `/opencode <task>` | Delegate coding, bug fixes, or refactoring to OpenCode CLI (`/oc`) | OpenCode analyzes, codes, tests, and reports |
 | `/agent <task>` | Run autonomous Antigravity coding/tool agent in Cloud VM | Delivers code diff, test logs, and Git commit |
+| `/clone <repo_url>` | Clone any external Git repository and use its features | Cloned into `repos/` with dependencies installed |
 | `/code <task>` | Instruct Antigravity to write, test, and commit new features | Pushes commits directly to `main` branch |
 | `/dark <topic>` | Produce Dark Anime Psychology reel (10-stage pipeline) | 1080x1920 MP4 delivered to Telegram |
 | `/manga <chapter>` | Produce Chitran Original Manga serialized episode | 1080x1920 MP4 delivered to Telegram |

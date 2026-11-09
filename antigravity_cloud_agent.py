@@ -51,13 +51,14 @@ You have FULL UNRESTRICTED ACCESS to this entire computer and workspace ({REPO_R
 
 You possess 100% Computer Control capabilities:
 1. `clone_repository`: Clone ANY Git repository from the internet into `repos/`, inspect its README/architecture, auto-install dependencies, and use its features!
-2. `run_command`: Execute any bash/shell command with root privileges in any directory.
-3. `execute_python`: Run dynamic Python scripts and module integrations.
-4. `synthesize_and_register_tool`: Dynamically create new Python tools at runtime if you need a capability you don't already have.
-5. `read_file` / `write_file` / `list_files`: Complete unrestricted filesystem manipulation.
-6. `send_file_telegram`: Deliver videos, images, code, or datasets directly to Hanirwesh's Telegram.
-7. `produce_video`: Trigger the 10-Stage Dragon Studios pipeline or Faceless 3D Director Engine.
-8. `notify_telegram`: Stream progress updates and reports.
+2. `run_opencode`: Delegate complex coding, refactoring, PR reviews, and feature implementations to OpenCode CLI (`opencode run`).
+3. `run_command`: Execute any bash/shell command with root privileges in any directory.
+4. `execute_python`: Run dynamic Python scripts and module integrations.
+5. `synthesize_and_register_tool`: Dynamically create new Python tools at runtime if you need a capability you don't already have.
+6. `read_file` / `write_file` / `list_files`: Complete unrestricted filesystem manipulation.
+7. `send_file_telegram`: Deliver videos, images, code, or datasets directly to Hanirwesh's Telegram.
+8. `produce_video`: Trigger the 10-Stage Dragon Studios pipeline or Faceless 3D Director Engine.
+9. `notify_telegram`: Stream progress updates and reports.
 
 Operating Directives:
 {RULES_TEXT[:2500] if RULES_TEXT else "Autonomous pair programming with zero-prompting velocity."}
@@ -270,6 +271,23 @@ def tool_notify_telegram(message: str) -> str:
     ok = send_telegram(message)
     return "Notification delivered to Telegram." if ok else "Failed to deliver Telegram notification."
 
+def tool_run_opencode(prompt: str, working_dir: str = "", model: str = "") -> str:
+    """
+    Delegate coding, refactoring, or code review to OpenCode CLI (opencode run).
+    """
+    cwd = (REPO_ROOT / working_dir) if working_dir else REPO_ROOT
+    model_flag = f"--model {model}" if model else ""
+    cmd = f"opencode run {json.dumps(prompt)} {model_flag}"
+    print(f"[TOOL] Delegating to OpenCode: {cmd}")
+    try:
+        res = subprocess.run(cmd, shell=True, cwd=str(cwd), capture_output=True, text=True, timeout=300)
+        out = (res.stdout or "") + (("\nSTDERR:\n" + res.stderr) if res.stderr else "")
+        return f"OpenCode Exit Code: {res.returncode}\n{out[:4000]}"
+    except subprocess.TimeoutExpired:
+        return "OpenCode task timed out after 300s."
+    except Exception as e:
+        return f"OpenCode execution error: {str(e)}"
+
 def tool_synthesize_and_register_tool(tool_name: str, tool_description: str, python_code: str) -> str:
     """
     Agent Zero Dynamic Tool Synthesis:
@@ -288,6 +306,7 @@ def tool_synthesize_and_register_tool(tool_name: str, tool_description: str, pyt
 TOOL_MAPPING = {
     "run_command": tool_run_command,
     "clone_repository": tool_clone_repository,
+    "run_opencode": tool_run_opencode,
     "execute_python": tool_execute_python,
     "send_file_telegram": tool_send_file_telegram,
     "read_file": tool_read_file,
@@ -299,6 +318,22 @@ TOOL_MAPPING = {
 }
 
 TOOLS_SCHEMA = [
+    {
+        "type": "function",
+        "function": {
+            "name": "run_opencode",
+            "description": "Delegate complex coding tasks, refactoring, bug fixes, or PR review to OpenCode CLI (opencode run).",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "prompt": {"type": "string", "description": "The exact coding, refactoring, or review task description."},
+                    "working_dir": {"type": "string", "description": "Target repository or directory to modify."},
+                    "model": {"type": "string", "description": "Optional model override (e.g. openrouter/anthropic/claude-sonnet-4)."}
+                },
+                "required": ["prompt"]
+            }
+        }
+    },
     {
         "type": "function",
         "function": {
