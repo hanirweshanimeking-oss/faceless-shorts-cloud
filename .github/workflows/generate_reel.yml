@@ -11,6 +11,10 @@ on:
         description: 'Visual style'
         required: false
         default: 'Tall Tale 3D'
+      pillar:
+        description: 'Dragon Studios Pillar (NONE, DARK_PSYCHOLOGY, ORIGINAL_MANGA, AI_TOOLS, CONVERSATIONAL_PODCAST)'
+        required: false
+        default: 'NONE'
       voice:
         description: 'Voice identifier (auto, en-US-EricNeural, en-GB-RyanNeural, en-US-JennyNeural, en-US-ChristopherNeural)'
         required: false
@@ -63,16 +67,25 @@ jobs:
               -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"⚙️ *Cloud Studio Runner Activated!*\\n\\n🎬 *Topic:* ${{ inputs.prompt }}\\n🎨 *Style:* ${{ inputs.style }}\\n🎙️ *Voice:* ${{ inputs.voice }}\\n\\n⏳ Synthesizing adaptive scenes, character direction & viral subtitles...\", \"parse_mode\": \"Markdown\"}"
           fi
 
-      - name: Generate Faceless Short Video
+      - name: Generate Faceless Short or Dragon Studios Reel
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          VOICE_FLAG=""
-          if [ "${{ inputs.voice }}" != "auto" ] && [ -n "${{ inputs.voice }}" ]; then
-            VOICE_FLAG="--voice ${{ inputs.voice }}"
+          TARGET="${{ inputs.style }}"
+          MODE="FACELESS_3D"
+          if [ "${{ inputs.pillar }}" != "NONE" ] && [ -n "${{ inputs.pillar }}" ]; then
+            TARGET="${{ inputs.pillar }}"
+            MODE="DRAGON_PILLAR"
           fi
-          python -m faceless_engine.cli --prompt "${{ inputs.prompt }}" --style "${{ inputs.style }}" --slug "${{ inputs.slug }}" $VOICE_FLAG
+          python unified_cloud_dispatcher.py \
+            --prompt "${{ inputs.prompt }}" \
+            --mode "$MODE" \
+            --target "$TARGET" \
+            --voice "${{ inputs.voice }}" \
+            --slug "${{ inputs.slug }}"
+          mkdir -p "output/faceless/${{ inputs.slug }}"
+          cp "output/final/${{ inputs.slug }}_master.mp4" "output/faceless/${{ inputs.slug }}/${{ inputs.slug }}_final.mp4"
 
       - name: Create Public Video Release (Permanent CDN for Meta & YouTube)
         env:
